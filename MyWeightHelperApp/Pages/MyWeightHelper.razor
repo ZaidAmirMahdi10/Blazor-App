@@ -1,0 +1,47 @@
+<!-- App.razor -->
+@page "/myweighthelper"
+@using MyWeightHelperApp.Models
+
+<h1>My Weight Helper App</h1>
+
+<p>Enter your height (in cm) and weight (in kg) to calculate BMI:</p>
+
+<div>
+    <input type="number" placeholder="Height (cm)" @bind="Height" />
+    <input type="number" placeholder="Weight (kg)" @bind="Weight" />
+    <button @onclick="HandleCalculate">Calculate</button>
+</div>
+
+@if (!string.IsNullOrEmpty(BMI) && !string.IsNullOrEmpty(Category))
+{
+    <div>
+        <p>Your BMI is: @BMI</p>
+        <p>You are: @Category</p>
+    </div>
+}
+
+@code {
+    private string Height { get; set; }
+    private string Weight { get; set; }
+    private string BMI { get; set; }
+    private string Category { get; set; }
+
+    private void HandleCalculate()
+    {
+        if (string.IsNullOrWhiteSpace(Height) || string.IsNullOrWhiteSpace(Weight))
+        {
+            BMI = "";
+            Category = "";
+            return;
+        }
+
+        double height = double.Parse(Height);
+        double weight = double.Parse(Weight);
+
+        double bmiResult = WeightHelper.CalculateBMI(height, weight);
+        string categoryResult = WeightHelper.GetCategory(height, weight);
+
+        BMI = bmiResult.ToString("F2");
+        Category = categoryResult;
+    }
+}
