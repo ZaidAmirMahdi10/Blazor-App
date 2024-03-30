@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '6.0.x'  # Adjust to your preferred .NET version
+        dotnet-version: '6.0.x' 
 
     - name: Restore dependencies
       run: dotnet restore
@@ -26,3 +26,4 @@ jobs:
 
     - name: Run tests
       run: dotnet test
+
